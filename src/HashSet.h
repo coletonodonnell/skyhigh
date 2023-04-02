@@ -9,13 +9,13 @@ class HashSet
         float loadFactor;
         int maxSize;
         int itemCount;
-        std::vector<FlightData*> hashTable;
+        FlightData** hashTable;
         primesieve::iterator it;
 
         void rehash();
 
     public:
-        HashSet();
+        HashSet(int tableSize);
         bool insert(FlightData* flightData);
         bool contains(FlightData* flightData);
         bool remove(FlightData* flightData);

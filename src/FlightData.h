@@ -9,8 +9,7 @@ enum regionCode { AL = 51, AK = 1, AZ = 81, AR = 71, CA = 91, CO = 82, CT = 11, 
 class FlightData
 {
     private:
-        int id;                                      // numberIf n is greater than the current container size, the content is expanded by inserting at the end as many elements as needed to reach a size of n. If val is specified, the new elements are initialized as copies of val, otherwise, they are value-initialized.
-
+        int id;                                      // ID
         regionCode originState;                      // OriginWac
         std::pair<float, float> originLocation;      // Origin Longitude and Latitude
         regionCode destinationState;                 // DestWac
@@ -18,8 +17,8 @@ class FlightData
         airlineCode airlineCompany;                  // Airline Company
         float ticketPrice;                           // PricePerTicket
     public:
-        FlightData(regionCode originState, std::pair<float, float> originLocation, regionCode destinationState,
-                   std::pair<float, float> destinationLocation, airlineCode airlineCompany, float ticketPrice) : originState(originState), originLocation(originLocation), 
+        FlightData(int id, regionCode originState, std::pair<float, float> originLocation, regionCode destinationState,
+                   std::pair<float, float> destinationLocation, airlineCode airlineCompany, float ticketPrice) : id(id), originState(originState), originLocation(originLocation), 
                    destinationState(destinationState), destinationLocation(destinationLocation), airlineCompany(airlineCompany), ticketPrice(ticketPrice) {}
         int getID();
         
