@@ -11,6 +11,7 @@ class HashSet
         int itemCount;
         FlightData** hashTable;
         primesieve::iterator it;
+        FlightData* constant;
 
         void rehash();
 

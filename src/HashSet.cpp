@@ -3,8 +3,9 @@
 
 void HashSet::rehash() // should be working...
 {
-    it.jump_to(maxSize * 2);               // double size of hash table, find nearest prime, e.g. nearestPrime(maxSize * 2)
-    int oldSize = maxSize;                 // for later for loop
+    it.jump_to(maxSize * 2);                                // double size of hash table, find nearest prime, 
+                                                            // e.g. nearestPrime(maxSize * 2)
+    int oldSize = maxSize;                                  // for later for loop
     maxSize = it.next_prime();
     FlightData** newHashtable = new FlightData*[maxSize](); // this is our new hashTable
 
@@ -13,11 +14,11 @@ void HashSet::rehash() // should be working...
         if (hashTable[i] != nullptr)
         {
             int indexCount = i;
-            int probe = 1;
+            int probe = 0;
             while (newHashtable[indexCount] != nullptr)
             {
-                indexCount = (indexCount + probe * probe) % maxSize;
                 probe++;
+                indexCount = (indexCount + probe * probe) % maxSize;
             }
 
             newHashtable[indexCount] = hashTable[i];
@@ -31,30 +32,30 @@ void HashSet::rehash() // should be working...
 
 HashSet::HashSet(int tableSize) : loadFactor(0.0), maxSize(tableSize), itemCount(0)
 {
-    FlightData** newHashtable = new FlightData*[maxSize]();
-    hashTable = newHashtable;
+    hashTable = new FlightData*[maxSize]();
+    constant = new FlightData(INT16_MIN, regionCode::AK, "", regionCode::AK, "", airlineCode::AA, 0.0);
 }
 
 bool HashSet::insert(FlightData* flightData) // in theory works
 {
     int index = flightData->getID();
     int id = flightData->getID();
-    int probe = 1;
+    int probe = 0;
 
     while(hashTable[index] != nullptr)
     {
         if (hashTable[index]->getID() == id)
             return false;
-        index = (index + probe * probe) % maxSize;
         probe++;
+        index = (index + probe * probe) % maxSize;
     }
 
     hashTable[index] = flightData;
     itemCount++;
     loadFactor = static_cast<float>(itemCount) / static_cast<float>(maxSize);
 
-    if (loadFactor >= 0.5)
-        rehash();
+    if (loadFactor > 0.5) // this makes the worst case O(n)
+        rehash();         // keeping it at or below 0.5 guarantees collision resolution
 
     return true;
 }
@@ -78,6 +79,7 @@ bool HashSet::remove(FlightData* flightData) // untested
 {
     int index = flightData->getID();
     int probe = 1;
+    // If it is nullptr, it doesn't exist, probes won't have empty spots
     while (hashTable[index] != nullptr && hashTable[index]->getID() != flightData->getID())
     {
         index = (index + probe * probe) % maxSize;
@@ -86,8 +88,8 @@ bool HashSet::remove(FlightData* flightData) // untested
 
     if (hashTable[index] != nullptr && hashTable[index]->getID() == flightData->getID())
     {    
-        hashTable[index] = nullptr;
-        return true;
+        hashTable[index] = constant;         // if we set this to nullptr, remove and contains break
+        return true;                         // so this constant acts as a pass through value
     }
     return false;
 

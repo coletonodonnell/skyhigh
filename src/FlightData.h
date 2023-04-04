@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <string>
 
 enum airlineCode { WN = 1, DL = 2, AA = 3, UA = 4, B6 = 5, AS = 6, NK = 7, G4 = 8, F9 = 9, HA = 10, SY = 11, VX = 12 };
 enum regionCode { AL = 51, AK = 1, AZ = 81, AR = 71, CA = 91, CO = 82, CT = 11, DE = 31, DC = 32, FL = 33, GA = 34, GU, HI = 2, ID = 83, IL = 41, IN = 42, IA = 61, KS = 62,
@@ -11,14 +12,15 @@ class FlightData
     private:
         int id;                                      // ID
         regionCode originState;                      // OriginWac
-        std::pair<float, float> originLocation;      // Origin Longitude and Latitude
+        std::string originLocation;                  // Origin Airport
         regionCode destinationState;                 // DestWac
-        std::pair<float, float> destinationLocation; // Destination Longitude and Latitude
+        std::string destinationLocation;             // Destination Airport
         airlineCode airlineCompany;                  // Airline Company
         float ticketPrice;                           // PricePerTicket
+
     public:
-        FlightData(int id, regionCode originState, std::pair<float, float> originLocation, regionCode destinationState,
-                   std::pair<float, float> destinationLocation, airlineCode airlineCompany, float ticketPrice) : id(id), originState(originState), originLocation(originLocation), 
+        FlightData(int id, regionCode originState, std::string originLocation, regionCode destinationState,
+                   std::string destinationLocation, airlineCode airlineCompany, float ticketPrice) : id(id), originState(originState), originLocation(originLocation), 
                    destinationState(destinationState), destinationLocation(destinationLocation), airlineCompany(airlineCompany), ticketPrice(ticketPrice) {}
         int getID();
         
