@@ -1,7 +1,13 @@
 #include "HashSet.h"
 #include <primesieve.hpp>
 
-void HashSet::rehash() // should be working...
+HashSet::HashSet(int tableSize) : loadFactor(0.0), maxSize(tableSize), itemCount(0)
+{
+    hashTable = new FlightData*[maxSize]();
+    constant = new FlightData(INT16_MIN, regionCode::AK, "", regionCode::AK, "", airlineCode::AA, 0.0);
+}
+
+void HashSet::rehash() // O(n)
 {
     it.jump_to(maxSize * 2);                                // double size of hash table, find nearest prime, 
                                                             // e.g. nearestPrime(maxSize * 2)
@@ -9,13 +15,13 @@ void HashSet::rehash() // should be working...
     maxSize = it.next_prime();
     FlightData** newHashtable = new FlightData*[maxSize](); // this is our new hashTable
 
-    for (int i = 0; i < oldSize; i++)
+    for (int i = 0; i < oldSize; i++)                       // iterate over every element in the old table
     {
         if (hashTable[i] != nullptr)
         {
             int indexCount = i;
             int probe = 0;
-            while (newHashtable[indexCount] != nullptr)
+            while (newHashtable[indexCount] != nullptr)     // rehash
             {
                 probe++;
                 indexCount = (indexCount + probe * probe) % maxSize;
@@ -27,16 +33,10 @@ void HashSet::rehash() // should be working...
 
     loadFactor = static_cast<float>(itemCount) / static_cast<float>(maxSize);
     delete hashTable;
-    hashTable = newHashtable;
+    hashTable = newHashtable;                               // set new hashtable as the objects hashtable
 }
 
-HashSet::HashSet(int tableSize) : loadFactor(0.0), maxSize(tableSize), itemCount(0)
-{
-    hashTable = new FlightData*[maxSize]();
-    constant = new FlightData(INT16_MIN, regionCode::AK, "", regionCode::AK, "", airlineCode::AA, 0.0);
-}
-
-bool HashSet::insert(FlightData* flightData) // in theory works
+bool HashSet::insert(FlightData* flightData) // O(1) average, O(n) worst
 {
     int index = flightData->getID();
     int id = flightData->getID();
@@ -60,7 +60,7 @@ bool HashSet::insert(FlightData* flightData) // in theory works
     return true;
 }
 
-bool HashSet::contains(FlightData* flightData) // untested
+bool HashSet::contains(FlightData* flightData) // O(1)
 {
     int index = flightData->getID();
     int probe = 1;
@@ -75,32 +75,39 @@ bool HashSet::contains(FlightData* flightData) // untested
     return false;
 }
 
-bool HashSet::remove(FlightData* flightData) // untested
+HashSet HashSet::intersection(HashSet b) // O(n)
 {
-    int index = flightData->getID();
-    int probe = 1;
-    // If it is nullptr, it doesn't exist, probes won't have empty spots
-    while (hashTable[index] != nullptr && hashTable[index]->getID() != flightData->getID())
+    int selectedSize;
+    if (b.getMaxSize() < maxSize)
+        selectedSize = b.getMaxSize();
+    else
+        selectedSize = maxSize;
+    HashSet intersection(selectedSize); // choose min maxSize between A and B because that
+                                        // is the maximum size possible for an intersection
+
+    for (int i = 0; i < maxSize; i++)
     {
-        index = (index + probe * probe) % maxSize;
-        probe++;
+        if (hashTable[i] != nullptr)
+        {
+            if (b.contains(hashTable[i]))
+                intersection.insert(hashTable[i]);
+        }
     }
 
-    if (hashTable[index] != nullptr && hashTable[index]->getID() == flightData->getID())
-    {    
-        hashTable[index] = constant;         // if we set this to nullptr, remove and contains break
-        return true;                         // so this constant acts as a pass through value
-    }
-    return false;
-
+    return intersection;
 }
 
-int HashSet::size()
+int HashSet::size() // O(1)
 {
     return itemCount;
 }
 
-float HashSet::load_factor()
+int HashSet::getMaxSize() // O(1)
+{
+    return maxSize;
+}
+
+float HashSet::load_factor() // O(1)
 {
     return loadFactor;
 }

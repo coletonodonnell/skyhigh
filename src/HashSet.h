@@ -19,7 +19,8 @@ class HashSet
         HashSet(int tableSize);
         bool insert(FlightData* flightData);
         bool contains(FlightData* flightData);
-        bool remove(FlightData* flightData);
+        HashSet intersection(HashSet b);
         int size();
+        int getMaxSize();
         float load_factor();
 };
