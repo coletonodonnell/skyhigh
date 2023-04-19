@@ -163,22 +163,23 @@ bool BTreeSet::contains(FlightData* flightData) // O(log n)
     return false;
 }
 
-BTreeSet BTreeSet::intersection(BTreeSet b) // O(n log n)
+std::vector<FlightData*> BTreeSet::intersection(BTreeSet& b) // O(n log n)
 {
-    BTreeSet intersected_set;
+    std::vector<FlightData*> intersection;
 
     if (head == nullptr)
-        return intersected_set;
+        return intersection;
 
     std::queue<Node*> q;
 
     q.push(head);
+
     // BFS iteration over A set (this current object)
     while (!q.empty())
     {
         Node* node = q.front();
         if (b.contains(node->data)) // if B contains this node in A, this is an intersection
-            intersected_set.insert(node->data);
+            intersection.push_back(node->data);
         q.pop();
 
         if (node->left)
@@ -187,7 +188,7 @@ BTreeSet BTreeSet::intersection(BTreeSet b) // O(n log n)
             q.push(node->right);
     }
 
-    return intersected_set;
+    return intersection;
 }
 
 void BTreeSet::breadthFirstSearch() // O(n)

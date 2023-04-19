@@ -116,43 +116,60 @@ bool test2() // test HashSet intersection
   return true;
 }
 
+bool test3() // test BTreeSet intersection
+{
+  BTreeSet test3_btree_set_A;
+  BTreeSet test3_btree_set_B;
+  std::vector<FlightData*> tests;
+  tests.reserve(200);
+
+  for (int i = 0; i < 100; i++)
+  {
+    FlightData* newFlight = new FlightData(i, regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
+    test3_btree_set_A.insert(newFlight);
+    if (i >= 74)
+      test3_btree_set_B.insert(newFlight);
+    tests.push_back(newFlight);
+  }
+
+  for (int i = 100; i < 200; i++)
+  {
+    FlightData* newFlight = new FlightData(i, regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
+    test3_btree_set_B.insert(newFlight);
+    if (i < 125)
+      test3_btree_set_A.insert(newFlight);
+    tests.push_back(newFlight);
+  }
+
+  std::vector<FlightData*> intersection = test3_btree_set_A.intersection(test3_btree_set_B);
+
+  int count = 73;
+  for (auto flight: intersection)
+  {
+    count++;
+    if (!(test3_btree_set_A.contains(flight) && test3_btree_set_B.contains(flight)))
+    {
+      clean(tests);
+      std::cout << "TEST 3 \033[1;31mFAILED\033[0m" << std::endl;
+      return false;
+    }
+  }
+
+  if (count != 124)
+  {
+    clean(tests);
+    std::cout << "TEST 3 \033[1;31mFAILED\033[0m" << std::endl;
+    return false;
+  }
+
+  std::cout << "TEST 3 \033[1;32mPASSED\33[0m" << std::endl;
+  clean(tests);
+  return true;
+}
+
 int main()
 {
-  // auto start = std::chrono::high_resolution_clock::now();
-
-  // std::vector<HashSet> origins;      // 50
-  // std::vector<HashSet> destinations; // 50
-  // std::vector<HashSet> airlines;     // 12
-
-  // std::vector<BTreeSet> origins; 
-  // std::vector<BTreeSet> destinations;
-  // std::vector<BTreeSet> airlines;
-
-  // HashSet practice(1000000);
-
-  // for (int i = 0; i < 500000; i++)
-  // {
-  //   FlightData* newFlight = new FlightData(i, regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
-  //   practice.insert(newFlight);
-  // }
-
-  // BTreeSet test;
-
-  // for (int i = 0; i < 25; i++)
-  // {
-  //   FlightData* newFlight = new FlightData(i, regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
-  //   test.insert(newFlight);
-  // }
-
-  // auto a = new FlightData(0, regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
-  // std::cout << test.insert(a) << std::endl;
-  // std::cout << test.contains(a) << std::endl;
-
-  // test.breadthFirstSearch();
-
-  // auto stop = std::chrono::high_resolution_clock::now();
-  // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-
   test1();
   test2();
+  test3();
 }

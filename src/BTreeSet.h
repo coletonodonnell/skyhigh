@@ -1,5 +1,6 @@
 #pragma once
 #include "FlightData.h"
+#include <vector>
 
 class BTreeSet
 {
@@ -33,8 +34,7 @@ class BTreeSet
         ~BTreeSet();
         bool insert(FlightData* flightData);
         bool contains(FlightData* flightData);
-        
-        BTreeSet intersection(BTreeSet b);
+        std::vector<FlightData*> intersection(BTreeSet& b);
         void breadthFirstSearch();
         int size();
 };
