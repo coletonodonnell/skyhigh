@@ -132,6 +132,18 @@ BTreeSet::Node* BTreeSet::containsRecursive(Node* root, FlightData* value) // O(
     return containsRecursive(root->right, value);
 }
 
+void BTreeSet::postOrderDelete(Node* root) // O(n)
+{
+    if (root == nullptr)
+        return;
+    else
+    {
+        postOrderDelete(root->left);
+        postOrderDelete(root->right);
+        delete root;
+    }
+}
+
 bool BTreeSet::insert(FlightData* flightData) // O(log n)
 {
     head = insertRecursive(head, flightData);
@@ -198,4 +210,9 @@ void BTreeSet::breadthFirstSearch() // O(n)
         if (node->right)
             q.push(node->right);
     }
+}
+
+BTreeSet::~BTreeSet()
+{
+    postOrderDelete(head);
 }

@@ -9,7 +9,7 @@ class HashSet
         float loadFactor;
         int maxSize;
         int itemCount;
-        FlightData** hashTable;
+        std::vector<FlightData*> hashTable;
         primesieve::iterator it;
         FlightData* constant;
 
@@ -19,7 +19,7 @@ class HashSet
         HashSet(int tableSize);
         bool insert(FlightData* flightData);
         bool contains(FlightData* flightData);
-        HashSet intersection(HashSet b);
+        std::vector<FlightData*> intersection(HashSet* b);
         int size();
         int getMaxSize();
         float load_factor();

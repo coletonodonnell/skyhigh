@@ -26,11 +26,14 @@ class BTreeSet
 
         Node* insertRecursive(Node* root, FlightData* value);
         Node* containsRecursive(Node* root, FlightData* value);
+        void postOrderDelete(Node* root);
 
     public:
         BTreeSet() : head(nullptr), stateFlag(false), counter_size(0) {};
+        ~BTreeSet();
         bool insert(FlightData* flightData);
         bool contains(FlightData* flightData);
+        
         BTreeSet intersection(BTreeSet b);
         void breadthFirstSearch();
         int size();

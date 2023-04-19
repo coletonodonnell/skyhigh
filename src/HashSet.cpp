@@ -3,8 +3,8 @@
 
 HashSet::HashSet(int tableSize) : loadFactor(0.0), maxSize(tableSize), itemCount(0)
 {
-    hashTable = new FlightData*[maxSize]();
-    constant = new FlightData(INT16_MIN, regionCode::AK, "", regionCode::AK, "", airlineCode::AA, 0.0);
+    std::vector<FlightData*> table(tableSize, nullptr);
+    hashTable = table;
 }
 
 void HashSet::rehash() // O(n)
@@ -13,35 +13,33 @@ void HashSet::rehash() // O(n)
                                                             // e.g. nearestPrime(maxSize * 2)
     int oldSize = maxSize;                                  // for later for loop
     maxSize = it.next_prime();
-    FlightData** newHashtable = new FlightData*[maxSize](); // this is our new hashTable
+    std::vector<FlightData*> newHashtable(maxSize, nullptr);// this is our new hashTable
 
-    for (int i = 0; i < oldSize; i++)                       // iterate over every element in the old table
+    for (auto flight: hashTable)                            // iterate over every element in the old table
     {
-        if (hashTable[i] != nullptr)
+        if (flight != nullptr)
         {
-            int indexCount = i;
+            int index = flight->getID() % maxSize;
             int probe = 0;
-            while (newHashtable[indexCount] != nullptr)     // rehash
+            while (newHashtable[index] != nullptr)     // rehash
             {
                 probe++;
-                indexCount = (indexCount + probe * probe) % maxSize;
+                index = (index + probe * probe) % maxSize;
             }
 
-            newHashtable[indexCount] = hashTable[i];
+            newHashtable[index] = flight;
         }
     }
 
     loadFactor = static_cast<float>(itemCount) / static_cast<float>(maxSize);
-    delete hashTable;
     hashTable = newHashtable;                               // set new hashtable as the objects hashtable
 }
 
 bool HashSet::insert(FlightData* flightData) // O(1) average, O(n) worst
 {
-    int index = flightData->getID();
+    int index = flightData->getID() % maxSize;
     int id = flightData->getID();
-    int probe = 0;
-
+    int probe = 1;
     while(hashTable[index] != nullptr)
     {
         if (hashTable[index]->getID() == id)
@@ -62,7 +60,7 @@ bool HashSet::insert(FlightData* flightData) // O(1) average, O(n) worst
 
 bool HashSet::contains(FlightData* flightData) // O(1)
 {
-    int index = flightData->getID();
+    int index = flightData->getID() % maxSize;
     int probe = 1;
     while (hashTable[index] != nullptr && hashTable[index]->getID() != flightData->getID())
     {
@@ -75,22 +73,21 @@ bool HashSet::contains(FlightData* flightData) // O(1)
     return false;
 }
 
-HashSet HashSet::intersection(HashSet b) // O(n)
+std::vector<FlightData*> HashSet::intersection(HashSet* b) // O(n)
 {
     int selectedSize;
-    if (b.getMaxSize() < maxSize)
-        selectedSize = b.getMaxSize();
+    if (b->getMaxSize() < maxSize)
+        selectedSize = b->getMaxSize();
     else
         selectedSize = maxSize;
-    HashSet intersection(selectedSize); // choose min maxSize between A and B because that
-                                        // is the maximum size possible for an intersection
+    std::vector<FlightData*> intersection;
 
     for (int i = 0; i < maxSize; i++)
     {
         if (hashTable[i] != nullptr)
         {
-            if (b.contains(hashTable[i]))
-                intersection.insert(hashTable[i]);
+            if (b->contains(hashTable[i]))
+                intersection.push_back(hashTable[i]);
         }
     }
 
