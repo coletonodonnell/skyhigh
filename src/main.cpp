@@ -25,10 +25,10 @@ int main()
     mainHashSet.insert(flightData);
     mainBTreeSet.insert(flightData);
 
-    Toolbox::getInstance().getOriginBTreeBuckets()[std::stoi(row[2])]->insert(flightData);
-    Toolbox::getInstance().getOriginHashBuckets()[std::stoi(row[2])]->insert(flightData);
-    Toolbox::getInstance().getDestBTreeBuckets()[std::stoi(row[4])]->insert(flightData);
-    Toolbox::getInstance().getDestHashBuckets()[std::stoi(row[4])]->insert(flightData); 
+    Toolbox::getInstance().getOriginBTreeBuckets()[row[1]]->insert(flightData);
+    Toolbox::getInstance().getOriginHashBuckets()[row[1]]->insert(flightData);
+    Toolbox::getInstance().getDestBTreeBuckets()[row[3]]->insert(flightData);
+    Toolbox::getInstance().getDestHashBuckets()[row[3]]->insert(flightData); 
   }
 
   
