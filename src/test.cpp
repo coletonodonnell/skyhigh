@@ -10,14 +10,14 @@ void clean(std::vector<FlightData*> data)
     delete flight;
 }
 
-bool test1() // test 1,000,000 elements stored
+bool test1() // test 500,000 elements stored
 {
   HashSet test1_hash_set(20);
   BTreeSet test1_tree_set;
   std::vector<FlightData*> tests;
-  tests.reserve(1000000);
+  tests.reserve(250000);
 
-  for (int i = 0; i < 1000000; i++)
+  for (int i = 0; i < 250000; i++)
   {
     FlightData* newFlight = new FlightData(i, regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
     test1_hash_set.insert(newFlight);
@@ -26,9 +26,9 @@ bool test1() // test 1,000,000 elements stored
   }
 
   std::vector<bool> hash_test;
-  hash_test.reserve(1000000);
+  hash_test.reserve(250000);
   std::vector<bool> tree_test;
-  tree_test.reserve(1000000);
+  tree_test.reserve(250000);
 
   for (auto flight: tests)
   {

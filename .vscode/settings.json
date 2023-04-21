@@ -92,9 +92,14 @@
         "valarray": "cpp",
         "variant": "cpp",
         "source_location": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "charconv": "cpp",
+        "span": "cpp",
+        "ranges": "cpp",
+        "filesystem": "cpp"
     },
     "cSpell.words": [
-        "primesieve"
+        "primesieve",
+        "skyhigh"
     ]
 }
