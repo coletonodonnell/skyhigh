@@ -1,0 +1,32 @@
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+}
+
+.header img {
+  width: 7.1875rem;
+}
+
+.menu h1, .menu h2, .menu h3 {
+  color: #002766;
+}
+
+.layout .container {
+  display: grid;
+  grid-template-areas: "header header header header header header" "map map map map map menus";
+}
+.layout__header {
+  grid-area: header;
+}
+.layout__map {
+  grid-area: map;
+}
+.layout__menu {
+  grid-area: menus;
+}
+
+/*# sourceMappingURL=style.css.map */

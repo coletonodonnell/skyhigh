@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <!--Connect StyleSheet-->
+    <link rel="stylesheet" href="./app/css/style.css">
+
+    <link rel="icon" type="image/png" sizes="48x48" href="map_icon.webp" >
+    <title>MAP</title>
+</head>
+<body>
+    <section class="layout">
+        <div class="container">
+            <div class="header layout__header">
+                    <a href="index.html">
+                        <img src="map_icon.webp" alt="MAP logo">
+                    </a>
+            </div>
+            <div class="layout__map">
+                <!--Tableau start-->
+                <div class='tableauPlaceholder' id='viz1682089018786' style='position: relative'><noscript>
+                    <a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ep&#47;EpucFinalProject&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript>
+                    <object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+                        <param name='embed_code_version' value='3' /> 
+                        <param name='site_root' value='' />
+                        <param name='name' value='EpucFinalProject&#47;Dashboard1' /><param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                        <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ep&#47;EpucFinalProject&#47;Dashboard1&#47;1.png' /> 
+                        <param name='animate_transition' value='yes' />
+                        <param name='display_static_image' value='yes' />
+                        <param name='display_spinner' value='yes' />
+                        <param name='display_overlay' value='yes' />
+                        <param name='display_count' value='yes' />
+                        <param name='language' value='en-US' />
+                        <param name='filter' value='publish=yes' />
+                    </object>
+                </div>                
+                    
+                
+                <!--Tableau end-->
+            </div>
+            <div class="menu layout__menu">
+                <h1>Sky High</h1>
+                <p>
+                    The SkyHigh project is the final project submission for COP3530.
+                    Group members of this project are: Coleton O'Donnell, Maria Nicos Alain Pasaylo, and Akash Boggavarapu. 
+                    This project utilizes flight data from the year 2018 and given an origin and/or destination, the average ticket prices of various airline companies will will displayed along with a map visual. The project utilizes a BTree Set and a Hash Set to sort and store the flight data.
+                    A total of 500,000 random flights were taken from the flight dataset source.
+                </p>
+                <h2>Origin</h2>
+                <h2>Destination</h2>
+                <h3>HashMap</h3>
+                <h3>BTreeMap</h3>  
+            </div>
+        
+
+        </div>
+        
+
+        
+
+        
+    </section>
+    <script type='text/javascript'>                    
+        var divElement = document.getElementById('viz1682089018786');                   
+        var vizElement = divElement.getElementsByTagName('object')[0];                    
+        if ( divElement.offsetWidth > 800 ) { vizElsement.style.width='900px';vizElement.style.height='527px';} 
+        else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='900px';vizElement.style.height='527px';} 
+        else { vizElement.style.width='100%';vizElement.style.height='727px';}                     
+        var scriptElement = document.createElement('script');                    
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+    </script>
+</body>
+</html>
