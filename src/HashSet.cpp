@@ -13,29 +13,6 @@ HashSet::HashSet(int tableSize) : loadFactor(0.0), maxSize(tableSize), itemCount
     hashTable = table;
 }
 
-// HashSet::~HashSet()
-// {
-//     if (it)
-//         delete it;
-// }
-
-// HashSet::HashSet(const HashSet& l) : loadFactor(l.loadFactor), maxSize(l.maxSize), itemCount(l.itemCount),
-//                                      hashTable(l.hashTable)
-// {
-//     // it = new primesieve::iterator;
-// }
-
-// HashSet::HashSet(const HashSet& r) : loadFactor(r.loadFactor), maxSize(r.maxSize), itemCount(0)
-// {
-//     std::vector<FlightData*> table(maxSize, nullptr);
-//     hashTable = table;
-// }
-
-// HashSet& HashSet::operator=(const HashSet& r)
-// {
-//     return *r;
-// }
-
 void HashSet::rehash() // O(n)
 {
     it.jump_to(maxSize * 2);                                // double size of hash table, find nearest prime, 

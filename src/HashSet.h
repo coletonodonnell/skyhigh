@@ -16,8 +16,6 @@ class HashSet
     public:
         HashSet(int tableSize);
         HashSet();
-        // ~HashSet();
-        // HashSet(const HashSet& l);
 
         bool insert(FlightData* flightData);
         bool contains(FlightData* flightData);

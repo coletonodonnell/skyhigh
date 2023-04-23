@@ -9,7 +9,7 @@ enum regionCode { AL = 51, AK = 1, AZ = 81, AR = 71, CA = 91, CO = 82, CT = 11, 
 
 class FlightData
 {
-    private:
+    public:
         int id;                                      // ID
         regionCode originState;                      // OriginWac
         std::string originLocation;                  // Origin Airport
@@ -17,8 +17,7 @@ class FlightData
         std::string destinationLocation;             // Destination Airport
         airlineCode airlineCompany;                  // Airline Company
         float ticketPrice;                           // PricePerTicket
-
-    public:
+        
         FlightData(int id, regionCode originState, std::string originLocation, regionCode destinationState,
                    std::string destinationLocation, airlineCode airlineCompany, float ticketPrice) : id(id), originState(originState), originLocation(originLocation), 
                    destinationState(destinationState), destinationLocation(destinationLocation), airlineCompany(airlineCompany), ticketPrice(ticketPrice) {}

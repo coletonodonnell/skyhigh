@@ -189,7 +189,7 @@ bool test5()
   try
   {
     std::string connectionString = "host=skyhigh.cxneevt5jfbi.us-east-2.rds.amazonaws.com port=5432 dbname=production user=postgres password=dPaA&3A^JUmG*^!MLX*z2&";
-    auto conn = pqxx::connection(connectionString.c_str());
+    auto conn = pqxx::connection("host=skyhigh.cxneevt5jfbi.us-east-2.rds.amazonaws.com port=5432 dbname=production user=postgres password=dPaA&3A^JUmG*^!MLX*z2&");
     pqxx::work w(conn);
     pqxx::result r = w.exec("TRUNCATE tests");
     r = w.exec("INSERT INTO tests VALUES (0, 23, 'PHL', 91, 'LAX', 1, 182.3);");
