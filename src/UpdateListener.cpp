@@ -18,7 +18,7 @@ void UpdateListener::handleFileAction( efsw::WatchID watchid, const std::string&
             count++; // this runs 3 times per save, we want to run this every 3rd iteration
             if (count % 3 == 0) 
             {
-                std::ifstream input("/home/coleton/test/selection.out"); // get the details
+                std::ifstream input("command/selection.out"); // get the details
                 std::vector<std::string> lines;
                 for (std::string line; getline(input, line); )
                     lines.push_back(line);

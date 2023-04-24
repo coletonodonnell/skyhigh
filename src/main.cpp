@@ -39,11 +39,11 @@ int main()
   efsw::FileWatcher* fileWatcher = new efsw::FileWatcher();
   UpdateListener* listener = new UpdateListener();
 
-  efsw::WatchID watchID = fileWatcher->addWatch( "/home/coleton/test/", listener, false);
+  efsw::WatchID watchID = fileWatcher->addWatch("command/", listener, false);
 
   fileWatcher->watch();
 
   while (true) {}
-  
+
   return 0;
 }
