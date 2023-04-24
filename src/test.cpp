@@ -3,6 +3,9 @@
 #include "BTreeSet.h"
 #include <pqxx/pqxx>
 #include <iostream>
+#include <random>
+#include <algorithm>
+#include <chrono>
 
 void clean(std::vector<FlightData*> data)
 {
@@ -225,6 +228,63 @@ bool test5()
   }
 }
 
+bool test6()
+{
+  HashSet hash_set_a(20);
+  HashSet hash_set_b(20);
+  // BTreeSet btree_set_a;
+  // BTreeSet btree_set_b;
+  std::vector<int> nums;
+  for (int i = 0; i < 100000; i++)
+    nums.push_back(i);
+  
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::shuffle(nums.begin(), nums.end(), std::default_random_engine(seed));
+
+  std::vector<FlightData*> tests;
+  tests.reserve(10000);
+
+  for (int i = 0; i < 10000; i++)
+  {
+    FlightData* newFlight = new FlightData(nums[i], regionCode::AK, "PAX", regionCode::AL, "NYC", airlineCode::AA, 127.0);
+    // btree_set_a.insert(newFlight);
+    // btree_set_b.insert(newFlight);
+    hash_set_a.insert(newFlight);
+    hash_set_b.insert(newFlight);
+    tests.push_back(newFlight);
+  }
+
+  std::vector<FlightData*> a = hash_set_a.getHashTable();
+  std::vector<FlightData*> b = hash_set_b.getHashTable();
+  std::sort(a.begin(), a.end());
+  std::sort(b.begin(), b.end());
+  std::vector<FlightData*> diff;
+  std::set_difference(b.begin(), b.end(), a.begin(), a.end(), std::inserter(diff, diff.end()));
+  std::cout << a.size() << std::endl;
+  std::cout << b.size() << std::endl;
+  std::cout << diff.size() << std::endl;
+  std::vector<bool> contains_test;
+  for (auto i: a)
+  {
+    if(hash_set_a.contains(i))
+      contains_test.push_back(i);
+  }
+  std::cout << contains_test.size() << std::endl;
+
+  // std::vector<FlightData*> interA = hash_set_a.intersection(&hash_set_b);
+  // std::vector<FlightData*> interB = btree_set_a.intersection(btree_set_b);
+  // std::sort(interA.begin(), interA.end());
+  // std::sort(interB.begin(), interB.end());
+  // std::cout << interA.size() << std::endl;
+  // std::cout << interB.size() << std::endl;
+  // std::vector<FlightData*> diff;
+  // std::set_difference(interB.begin(), interB.end(), interA.begin(), interA.end(), std::inserter(diff, diff.end()));
+  // for (FlightData* i: diff)
+  //   std::cout << i->id << std::endl;
+  clean(tests);
+  return true;
+}
+
 void run_tests()
 {
   test1();
@@ -232,4 +292,5 @@ void run_tests()
   test3();
   test4();
   test5();
+  // test6();
 }

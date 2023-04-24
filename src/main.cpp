@@ -1,24 +1,23 @@
 #include "FlightData.h"
 #include "test.h"
 #include "Toolbox.h"
+#include "UpdateListener.h"
 #include <iostream>
 #include <map>
 #include <chrono>
 #include <rapidcsv.h>
 #include <pqxx/pqxx>
-#include "UpdateListener.h"
+#include "signal.h"
 
 using namespace efsw;
 
 int main()
-{
-  auto start = std::chrono::high_resolution_clock::now();
-  
+{  
   // CSV is read 
   rapidcsv::Document doc("csv/flights1.csv");
 
   std::vector<FlightData*> main;
-  HashSet mainHashSet(1000000);
+  HashSet mainHashSet(1000000); // pre-populating means no need to rehash, more efficient
   BTreeSet mainBTreeSet;
 
   for (int i = 0; i < 500000; i++)
@@ -35,13 +34,6 @@ int main()
     Toolbox::getInstance().getDestHashBuckets()[row[3]]->insert(flightData); 
   }
 
-  
-  // auto stop = std::chrono::high_resolution_clock::now();
-  // auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-
-  // clean(main);
-  // std::cout << duration.count() << std::endl;
-
   // Taken from the sample example here: https://github.com/SpartanJ/efsw
 
   efsw::FileWatcher* fileWatcher = new efsw::FileWatcher();
@@ -51,6 +43,7 @@ int main()
 
   fileWatcher->watch();
 
-  // 
   while (true) {}
+  
+  return 0;
 }

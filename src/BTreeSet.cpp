@@ -75,6 +75,7 @@ BTreeSet::Node* BTreeSet::rotateRightLeft(Node* root) // O(1)
     return root;
 }
 
+// Insertion is very simple, travels down the tree, and then if it doesn't exist, add it. Rebalance on the way back up
 BTreeSet::Node* BTreeSet::insertRecursive(Node* root, FlightData* value) // O(log n)
 {
     if (root == nullptr)
@@ -121,6 +122,7 @@ BTreeSet::Node* BTreeSet::insertRecursive(Node* root, FlightData* value) // O(lo
     return root;
 }
 
+// Goes down the tree, and returns the selection made, if it isn't nullptr, it exists
 BTreeSet::Node* BTreeSet::containsRecursive(Node* root, FlightData* value) // O(log n)
 {
     if (root == nullptr || root->data->getID() == value->getID())
@@ -132,6 +134,7 @@ BTreeSet::Node* BTreeSet::containsRecursive(Node* root, FlightData* value) // O(
     return containsRecursive(root->right, value);
 }
 
+// For the destructor
 void BTreeSet::postOrderDelete(Node* root) // O(n)
 {
     if (root == nullptr)
@@ -144,6 +147,7 @@ void BTreeSet::postOrderDelete(Node* root) // O(n)
     }
 }
 
+// Public method for insert, utilizes recursive function
 bool BTreeSet::insert(FlightData* flightData) // O(log n)
 {
     head = insertRecursive(head, flightData);
@@ -155,6 +159,7 @@ bool BTreeSet::insert(FlightData* flightData) // O(log n)
     else return true;
 }
 
+// Public method for contains, utilizes recursive function
 bool BTreeSet::contains(FlightData* flightData) // O(log n)
 {
     Node* result = containsRecursive(head, flightData);
@@ -191,7 +196,8 @@ std::vector<FlightData*> BTreeSet::intersection(BTreeSet& b) // O(n log n)
     return intersection;
 }
 
-void BTreeSet::breadthFirstSearch() // O(n)
+// For debugging only
+void BTreeSet::breadthFirstSearch()
 {
     if (head == nullptr)
         return;
@@ -215,5 +221,5 @@ void BTreeSet::breadthFirstSearch() // O(n)
 
 BTreeSet::~BTreeSet()
 {
-    postOrderDelete(head);
+    postOrderDelete(head); // clean using post order delete on the head
 }

@@ -23,4 +23,5 @@ class HashSet
         int size();
         int getMaxSize();
         float load_factor();
+        std::vector<FlightData*> getHashTable();
 };

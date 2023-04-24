@@ -17,21 +17,23 @@ Toolbox::Toolbox()
     airlines["SY"] = 11;
     airlines["VX"] = 12;
 
-    std::set<std::string> state({"ABQ", "ANC", "ATL", "AUS", "BDL", "BHM", "BNA", "BOS", "BUF", "BUR", "BWI", "CHS", "CLE", "CLT", "CMH", "CVG", "DAL", "DCA", "DEN", "DFW", "DTW", "ELP", "ECP", "EWR", 
-    "FLL", "HNL", "HOU", "IAD", "IAH", "IND", "JAX", "JFK", "LAS", "LAX", "LGA", "LIT", "MCI", "MCO", "MDW", "MEM", "MIA", "MKE", "MSP", "MSY", "OAK", "OGG", "OKC", "OMA", "ONT", "ORD", 
-    "ORF", "PBI", "PDX", "PHL", "PHX", "PIT", "PVD", "RDU", "RIC", "RNO", "RSW", "SAN", "SAT", "SDF", "SEA", "SFO", "SJC", "SJU", "SLC", "SMF", "SNA", "STL", "TPA", "TUL", "TUS", "ABE", 
-    "ABI", "ABR", "ABY", "ACK", "ACT", "ACV", "ACY", "ADK", "ADQ", "AEX", "AGS", "AKN", "ALB", "ALO", "AMA", "APN", "ART", "ASE", "ATW", "AVL", "AVP", "AZO", "BET", "BFL", "BGM", "BGR", 
-    "BIL", "BIS", "BJI", "BLI", "BMI", "BOI", "BPT", "BQK", "BQN", "BRD", "BRO", "BRW", "BTM", "BTR", "BTV", "BZN", "CAE", "CAK", "CDC", "CDV", "CEC", "CHA", "CHO", "CIC", "CID", "CIU", 
-    "CLD", "CLL", "CMI", "CMX", "CNY", "COD", "COS", "COU", "CPR", "CRP", "CRW", "CSG", "CWA", "CYS", "DAB", "DAY", "DBQ", "DHN", "DIK", "DLG", "DLH", "DRO", "DRT", "DSM", "DVL", "EAU", 
-    "EGE", "EKO", "ELM", "ERI", "ESC", "EUG", "EVV", "EWN", "EYW", "FAI", "FAR", "FAT", "FAY", "FCA", "FLG", "FLO", "FNT", "FOE", "FSD", "FSM", "FWA", "GCC", "GCK", "GEG", "GFK", "GGG", 
-    "GJT", "GNV", "GPT", "GRB", "GRI", "GRK", "GRR", "GSO", "GSP", "GST", "GTF", "GTR", "GUC", "GUM", "HDN", "HIB", "HLN", "HOB", "HPN", "HRL", "HSV", "HTS", "HYA", "HYS", "ICT", "IDA", 
-    "ILG", "ILM", "IMT", "INL", "IPL", "ISN", "ISP", "ITH", "ITO", "IYK", "JAC", "JAN", "JLN", "JMS", "JNU", "KOA", "KTN", "LAN", "LAR", "LAW", "LBB", "LCH", "LEX", "LFT", "LGB", "LIH", 
-    "LMT", "LNK", "LRD", "LSE", "LWB", "LWS", "LYH", "MAF", "MBS", "MCN", "MDT", "MEI", "MFE", "MFR", "MGM", "MHK", "MHT", "MKG", "MLB", "MLI", "MLU", "MMH", "MOB", "MOD", "MOT", "MQT", 
-    "MRY", "MSN", "MSO", "MTJ", "MVY", "MWH", "MYR", "OAJ", "OME", "ORH", "OTH", "OTZ", "OXR", "PAH", "PFN", "PHF", "PIA", "PIB", "PIE", "PIH", "PIR", "PLN", "PNS", "PPG", "PSC", "PSE", 
-    "PSG", "PSP", "PUB", "PWM", "RAP", "RDD", "RDM", "RFD", "RHI", "RKS", "ROA", "ROC", "ROW", "RST", "SAF", "SAV", "SBA", "SBN", "SBP", "SCC", "SCE", "SGF", "SGU", "SHD", "SHV", "SIT", 
-    "SJT", "SMX", "SPI", "SPN", "SPS", "SRQ", "STC", "STT", "STX", "SUN", "SUX", "SWF", "SYR", "TEX", "TLH", "TOL", "TRI", "TTN", "TUP", "TVC", "TWF", "TXK", "TYR", "TYS", "VEL", "VLD", 
-    "VPS", "WRG", "WYS", "XNA", "YAK", "YUM"});
+    // Horrifying abomination that is used to generate individual buckets
+    std::set<std::string> state({"ABQ", "ANC", "ATL", "AUS", "BDL", "BHM", "BNA", "BOS", "BUF", "BUR", "BWI", "CHS", "CLE", "CLT", "CMH", "CVG", "DAL", "DCA", "DEN", "DFW", "DTW", "ELP", 
+    "ECP", "EWR", "FLL", "HNL", "HOU", "IAD", "IAH", "IND", "JAX", "JFK", "LAS", "LAX", "LGA", "LIT", "MCI", "MCO", "MDW", "MEM", "MIA", "MKE", "MSP", "MSY", "OAK", "OGG", "OKC", "OMA", 
+    "ONT", "ORD", "ORF", "PBI", "PDX", "PHL", "PHX", "PIT", "PVD", "RDU", "RIC", "RNO", "RSW", "SAN", "SAT", "SDF", "SEA", "SFO", "SJC", "SJU", "SLC", "SMF", "SNA", "STL", "TPA", "TUL", 
+    "TUS", "ABE", "ABI", "ABR", "ABY", "ACK", "ACT", "ACV", "ACY", "ADK", "ADQ", "AEX", "AGS", "AKN", "ALB", "ALO", "AMA", "APN", "ART", "ASE", "ATW", "AVL", "AVP", "AZO", "BET", "BFL", 
+    "BGM", "BGR", "BIL", "BIS", "BJI", "BLI", "BMI", "BOI", "BPT", "BQK", "BQN", "BRD", "BRO", "BRW", "BTM", "BTR", "BTV", "BZN", "CAE", "CAK", "CDC", "CDV", "CEC", "CHA", "CHO", "CIC", 
+    "CID", "CIU", "CLD", "CLL", "CMI", "CMX", "CNY", "COD", "COS", "COU", "CPR", "CRP", "CRW", "CSG", "CWA", "CYS", "DAB", "DAY", "DBQ", "DHN", "DIK", "DLG", "DLH", "DRO", "DRT", "DSM", 
+    "DVL", "EAU", "EGE", "EKO", "ELM", "ERI", "ESC", "EUG", "EVV", "EWN", "EYW", "FAI", "FAR", "FAT", "FAY", "FCA", "FLG", "FLO", "FNT", "FOE", "FSD", "FSM", "FWA", "GCC", "GCK", "GEG", 
+    "GFK", "GGG", "GJT", "GNV", "GPT", "GRB", "GRI", "GRK", "GRR", "GSO", "GSP", "GST", "GTF", "GTR", "GUC", "GUM", "HDN", "HIB", "HLN", "HOB", "HPN", "HRL", "HSV", "HTS", "HYA", "HYS", 
+    "ICT", "IDA", "ILG", "ILM", "IMT", "INL", "IPL", "ISN", "ISP", "ITH", "ITO", "IYK", "JAC", "JAN", "JLN", "JMS", "JNU", "KOA", "KTN", "LAN", "LAR", "LAW", "LBB", "LCH", "LEX", "LFT", 
+    "LGB", "LIH", "LMT", "LNK", "LRD", "LSE", "LWB", "LWS", "LYH", "MAF", "MBS", "MCN", "MDT", "MEI", "MFE", "MFR", "MGM", "MHK", "MHT", "MKG", "MLB", "MLI", "MLU", "MMH", "MOB", "MOD", 
+    "MOT", "MQT", "MRY", "MSN", "MSO", "MTJ", "MVY", "MWH", "MYR", "OAJ", "OME", "ORH", "OTH", "OTZ", "OXR", "PAH", "PFN", "PHF", "PIA", "PIB", "PIE", "PIH", "PIR", "PLN", "PNS", "PPG", 
+    "PSC", "PSE", "PSG", "PSP", "PUB", "PWM", "RAP", "RDD", "RDM", "RFD", "RHI", "RKS", "ROA", "ROC", "ROW", "RST", "SAF", "SAV", "SBA", "SBN", "SBP", "SCC", "SCE", "SGF", "SGU", "SHD", 
+    "SHV", "SIT", "SJT", "SMX", "SPI", "SPN", "SPS", "SRQ", "STC", "STT", "STX", "SUN", "SUX", "SWF", "SYR", "TEX", "TLH", "TOL", "TRI", "TTN", "TUP", "TVC", "TWF", "TXK", "TYR", "TYS", 
+    "VEL", "VLD", "VPS", "WRG", "WYS", "XNA", "YAK", "YUM"});
 
+    // Generate each of the origin and destination buckets for each set structure for each airport
     for (auto i: state)
     {
         originBTreeBuckets[i] = new BTreeSet();
