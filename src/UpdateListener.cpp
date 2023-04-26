@@ -13,7 +13,7 @@ void UpdateListener::handleFileAction( efsw::WatchID watchid, const std::string&
                            std::string oldFilename ) {
       switch ( action ) {
         case efsw::Actions::Modified:
-          if (filename == "selection.out" || filename == "4913")
+          if (filename == "server/selection.out" || filename == "4913")
           {
             count++; // this runs 3 times per save, we want to run this every 3rd iteration
             if (count % 3 == 0) 
