@@ -1,0 +1,33 @@
+.menu{
+
+    padding-left: 10px; 
+
+    h1{
+        margin-top: 0px;
+    }
+    
+    label{
+        color: $blue;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    button{
+        margin: 15px 0px;
+        background-color: $blue;
+        color: white;
+        border: 0;
+        border-radius: 1rem;
+        padding: 10px;
+        cursor: pointer;
+        font-weight: 400;
+        transition: background-color 300ms ease-in-out;
+
+        &:hover{
+            background-color: gray;
+            color: $blue;
+        }
+
+    }
+
+}
