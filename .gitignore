@@ -31,6 +31,5 @@
 *.out
 *.app
 
+node_modules/
 build/*
-
-.vscode/*
