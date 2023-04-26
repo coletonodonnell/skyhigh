@@ -39,7 +39,7 @@ int main()
   efsw::FileWatcher* fileWatcher = new efsw::FileWatcher();
   UpdateListener* listener = new UpdateListener();
 
-  efsw::WatchID watchID = fileWatcher->addWatch("command/", listener, false);
+  efsw::WatchID watchID = fileWatcher->addWatch(".", listener, false);
 
   fileWatcher->watch();
 
