@@ -6,7 +6,8 @@ const port = 3000
 
 var fs = require('fs');
 
-app.use( bodyParser.json() );
+// Guided by: https://dev.to/gbudjeakp/how-to-connect-your-client-side-to-your-server-side-using-node-and-express-2i71
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true}));
 app.use(cors())
@@ -16,11 +17,12 @@ app.use(bodyParser.urlencoded({
 app.use(cors())
 app.use(express.static(__dirname))
 
-app.post('/upload', (req, res) => {
-    // console.log(req.body.org)
-    // console.log(req.body.dest)
-    // console.log(req.body.status)
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
 
+// API for file write
+app.post('/upload', (req, res) => {
     var off_on;
     if (req.body.status) {
         off_on = 1;
@@ -28,20 +30,20 @@ app.post('/upload', (req, res) => {
         off_on = 0;
     }
 
-
     fs.writeFile('selection.out', req.body.org + "\n" + req.body.dest + "\n" + off_on, function(err) {
         if (err) throw err;
     });
 
-    res.redirect('..')
-    res.end()
+    sleep(25000).then(() => {
+        res.redirect('..')
+        res.end()
+    })
 })
 
 app.get('/', (req, res)=>{
     res.sendFile("index.html")
 })
 
-//Start your server on a specified port
 app.listen(port, ()=>{
-    console.log(`Server is running on port ${port}`)
+    console.log(`Server is running on port: ${port}`)
 })

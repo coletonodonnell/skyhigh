@@ -65,7 +65,7 @@ bool HashSet::insert(FlightData* flightData) // O(1) average, O(n) worst
     return true;
 }
 
-bool HashSet::contains(FlightData* flightData) // O(1)
+bool HashSet::contains(FlightData* flightData) // O(n)
 {
     int index = flightData->getID() % maxSize;
     int probe = 1;
@@ -82,7 +82,7 @@ bool HashSet::contains(FlightData* flightData) // O(1)
     return false;
 }
 
-std::vector<FlightData*> HashSet::intersection(HashSet* b) // O(n)
+std::vector<FlightData*> HashSet::intersection(HashSet* b) // O(n^2)
 {
     int selectedSize;
     if (b->getMaxSize() < maxSize)
